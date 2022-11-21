@@ -23,13 +23,13 @@ class ValidateData(View):
     def post(self, request):
         json_data = json.loads(request.body)
         conf = get_configuration()
-        validation = {}
+        issues = {}
         for block in json_data:
-            vald = self.validate_block(block, conf)
-            if vald:
-                validation[block['block_key']] = vald
+            block_errors = self.validate_block(block, conf)
+            if block_errors:
+                issues[block['block_key']] = block_errors
 
-        print(validation)
+        print(issues)
 
     def validate_block(self, block, conf):
         error_lst = []
@@ -41,5 +41,12 @@ class ValidateData(View):
             error_lst.append('tool_id')
         if not block['send_name'] == conf['SEND_NAME']:
             error_lst.append('send_name')
-        
+        if not block['custom_parameters'][1] in conf['VERSION']:
+            error_lst.append('version')
+        if not block['custom_parameters'][2] in conf['LANGUAGE']:
+            error_lst.append('language')
+        if not block['custom_parameters'][4] == conf['APP']:
+            error_lst.append('app')
+        if not block['custom_parameters'][5] == conf['LAUNCH']:
+            error_lst.append('launch')
         return error_lst
