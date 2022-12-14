@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.views import View
 
 
+
 def get_configuration():
     """
     Returns JSON object as a dictionary.
@@ -23,44 +24,62 @@ def get_configuration():
 class ValidateData(View):
     def post(self, request):
         """
-        It will process post request on /validator/ and will
-         return errors with block keys.
+        It will process post request on /validator/ and will return
+         JSON data and a string of line numbers having errors.
         """
-        json_data = json.loads(request.body)
+        json_data = request.POST.get('jsontxtarea')
+        parsed_json = json.loads(json_data)
         conf = get_configuration()
-        issues = {}
-        for block in json_data:
-            block_errors = self.validate_block(block, conf)
-            if block_errors:
-                issues[block['block_key']] = block_errors
+        error_lines_lst = []
+        curr_pos = 2
+        error_lines = ''
 
-        print(issues)
-        return HttpResponse(json.dumps(issues))
+        for block in parsed_json:
+            block_error_lines = self.validate_block(block, conf, curr_pos)
+            if block_error_lines:
+                error_lines_lst.extend(block_error_lines)
+            curr_pos += 18
 
-    def validate_block(self, block, conf):
+        if error_lines_lst:
+            error_lines = ', '.join(map(str,error_lines_lst))
+            msg = 'There are some issues with course configurations which are highlighted below'
+        else:
+            msg = 'Course configurations looks fine'
+        return render(
+                        request,
+                        "result.html",
+                        {
+                            'json_data': json.dumps(parsed_json, indent = 6),
+                            'error_lines': error_lines,
+                            'message': msg
+                        }
+                )
+
+    def validate_block(self, block, conf, curr_pos):
         """
-        This method will validate various fields from the json block.
+        This method will validate various fields from the json block
+         and returns line numbers having errors for that block.
         """
-        error_lst = []
+        pos_lst = []
 
         if not block['launch_url'] in conf['LAUNCH_URL']:
-            error_lst.append('launch_url')
+            pos_lst.append(4 + curr_pos)
         if not block['tool_id'] in conf['TOOL_ID']:
-            error_lst.append('tool_id')
+            pos_lst.append(5 + curr_pos)
         if not block['send_email'] == conf['SEND_EMAIL']:
-            error_lst.append('tool_id')
+            pos_lst.append(15 + curr_pos)
         if not block['send_name'] == conf['SEND_NAME']:
-            error_lst.append('send_name')
+            pos_lst.append(16 + curr_pos)
         if not block['custom_parameters'][1] in conf['VERSION']:
-            error_lst.append('version')
+            pos_lst.append(8 + curr_pos)
         if not block['custom_parameters'][2] in conf['LANGUAGE']:
-            error_lst.append('language')
+            pos_lst.append(9 + curr_pos)
         if not block['custom_parameters'][4] == conf['APP']:
-            error_lst.append('app')
+            pos_lst.append(11 + curr_pos)
         if not block['custom_parameters'][5] == conf['LAUNCH']:
-            error_lst.append('launch')
+            pos_lst.append(12 + curr_pos)
         if block['custom_parameters'][3] == "module=pre-assess":
             if not block['lti_display_name'] == "knowledge_check":
-                error_lst.append('lti_display_name')
+                pos_lst.append(3 + curr_pos)
 
-        return error_lst
+        return pos_lst
