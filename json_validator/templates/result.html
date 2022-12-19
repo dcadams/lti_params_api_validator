@@ -4,11 +4,18 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Results | ValidatorApp</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        {% load static %}
+        <script src="{% static 'js/custom_prism.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/custom_prism.css' %}">
     </head>
     <body>
-
-        <pre>
-            <code>
+        <div style="text-align: center;">
+            <h3>{{message}}</h3>
+        </div>
+        <pre class="line-numbers language-javascript" data-line="{{error_lines}}" data-start="-1">
+            <code class="line-numbers language-javascript" data-prismjs-copy="Copy JSON">
                 <p id="result">
                     {{json_data}}
                 </p>
