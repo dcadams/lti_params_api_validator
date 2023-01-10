@@ -22,3 +22,9 @@ Run the app
 
 
 > Open 127.0.0.1:8000/validator to start using the app in browser.
+
+
+Run unit tests
+---
+    
+    ./manage.py test json_validator
