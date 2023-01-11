@@ -45,11 +45,12 @@ class ValidateData(View):
             msg = 'There are some issues with course configurations which are highlighted below'
         else:
             msg = 'Course configurations looks fine'
+        # import pdb; pdb.set_trace()
         return render(
                         request,
                         "result.html",
                         {
-                            'json_data': json.dumps(parsed_json, indent = 6),
+                            'json_data': json.dumps(parsed_json, indent = 6, ensure_ascii=False),
                             'error_lines': error_lines,
                             'message': msg
                         }

@@ -16,7 +16,7 @@ class TestLTIParamsAPIValidator(TestCase):
         """
         dummy_data = { 'jsontxtarea' : json.dumps([
                 {
-                    "display_name": "Governance and Compliance",
+                    "display_name": "Кібербезпека загрози, вразливості та атаки",
                     "block_key": "block-v1:R_org+R1+May22+type@lti_advantage_consumer+block@da7e7f8353f54fa49aeeded858ab7c7f",
                     "lti_display_name": "nowledge_check",
                     "launch_url": "https://hub-dev.netacad.com/kernel/lti/launch?client_id=824811",
