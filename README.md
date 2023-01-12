@@ -27,4 +27,4 @@ Run the app
 Run unit tests
 ---
     
-    ./manage.py test json_validator
+    ./manage.py test json_validator/test
