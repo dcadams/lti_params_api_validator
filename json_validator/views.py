@@ -1,11 +1,12 @@
+"""
+Views for the json_validator app.
+"""
 import json
 import traceback
 
 from django.conf import settings
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
-
 
 
 def get_configuration():
@@ -15,13 +16,16 @@ def get_configuration():
     try:
         with open(settings.CONFIG_PATH, encoding='utf-8') as conf_file:
             conf_json = json.load(conf_file)
-    except Exception:
+    except Exception:   # pylint: disable=W0703
         traceback.print_exc()
 
     return conf_json
 
 
 class ValidateData(View):
+    """
+    Class for validating course configurations.
+    """
     def post(self, request):
         """
         It will process post request on /validator/ and will return
@@ -45,16 +49,15 @@ class ValidateData(View):
             msg = 'There are some issues with course configurations which are highlighted below'
         else:
             msg = 'Course configurations looks fine'
-        # import pdb; pdb.set_trace()
         return render(
-                        request,
-                        "result.html",
-                        {
-                            'json_data': json.dumps(parsed_json, indent = 6, ensure_ascii=False),
-                            'error_lines': error_lines,
-                            'message': msg
-                        }
-                )
+            request,
+            "result.html",
+            {
+                'json_data': json.dumps(parsed_json, indent=6, ensure_ascii=False),
+                'error_lines': error_lines,
+                'message': msg
+            }
+        )
 
     def validate_block(self, block, conf, curr_pos):
         """

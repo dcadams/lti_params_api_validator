@@ -14,7 +14,7 @@ class TestLTIParamsAPIValidator(TestCase):
         """
         Test method for validating erroneous line numbers and message from dummy data.
         """
-        dummy_data = { 'jsontxtarea' : json.dumps([
+        dummy_data = {'jsontxtarea': json.dumps([
                 {
                     "display_name": "Кібербезпека загрози, вразливості та атаки",
                     "block_key": "block-v1:R_org+R1+May22+type@lti_advantage_consumer+block@da7e7f8353f54fa49aeeded858ab7c7f",
