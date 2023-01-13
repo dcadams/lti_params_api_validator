@@ -45,7 +45,7 @@ class ValidateData(View):
             curr_pos += 18
 
         if error_lines_lst:
-            error_lines = ', '.join(map(str,error_lines_lst))
+            error_lines = ', '.join(map(str, error_lines_lst))
             msg = 'There are some issues with course configurations which are highlighted below'
         else:
             msg = 'Course configurations looks fine'
