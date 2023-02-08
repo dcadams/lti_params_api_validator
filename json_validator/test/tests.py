@@ -36,7 +36,7 @@ class TestLTIParamsAPIValidator(TestCase):
                 {
                     "display_name": "Network Security Testing",
                     "block_key": "block-v1:R_org+R1+May22+type@lti_advantage_consumer+block@581379bb42274369abfc9b48dbc31e87",
-                    "lti_display_name": "LTI Advantage Consumer",
+                    "lti_display_name": "",
                     "launch_url": "https://hub-dev.netacad.com/kernel/lti/launch?client_id=824811",
                     "tool_id": "19",
                     "custom_parameters": [
@@ -182,5 +182,5 @@ class TestLTIParamsAPIValidator(TestCase):
 
         validator_response = self.client.post(reverse('validate_data'), dummy_data)
 
-        self.assertEqual(validator_response.context['error_lines'], '7, 10, 5, 25, 35, 60, 65, 67, 86, 96, 126, 136')
+        self.assertEqual(validator_response.context['error_lines'], '7, 10, 5, 25, 35, 23, 60, 65, 67, 86, 96, 126, 136')
         self.assertEqual(validator_response.context['message'], 'There are some issues with course configurations which are highlighted below')
