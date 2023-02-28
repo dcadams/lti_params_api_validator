@@ -85,5 +85,6 @@ class ValidateData(View):
         if block['custom_parameters'][3] == "module=pre-assess":
             if not block['lti_display_name'] == "knowledge_check":
                 pos_lst.append(3 + curr_pos)
-
+        elif not block['lti_display_name'] == "LTI Advantage Consumer":
+                pos_lst.append(3 + curr_pos)
         return pos_lst
