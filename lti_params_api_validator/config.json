@@ -2,7 +2,7 @@
     "LAUNCH_URL" : ["https://hub-dev.netacad.com/kernel/lti/launch?client_id=824811", "https://hub-qa.netacad.com/kernel/lti/launch?client_id=573080", "https://hub-nperf.netacad.com/kernel/lti/launch?client_id=030831", "https://contenthub.netacad.com/kernel/lti/launch?client_id=609587"],
     "VERSION" : ["version=1.0", "version=7.1"],
     "TOOL_ID" : ["1","11","13"],
-    "LANGUAGE" : ["lang=en-US", "lang=de-DE", "lang=es-XL", "lang=fr-FR", "lang=uk-UA", "lang=pt-BR", "lang=ar-SA", "lang=en"],
+    "LANGUAGE" : ["lang=en-US", "lang=de-DE", "lang=es-XL", "lang=fr-FR", "lang=uk-UA", "lang=pt-BR", "lang=ar-SA", "lang=en", "lang=nl-NL"],
     "APP" : "app=sgp",
     "LAUNCH" : "launch=adl",
     "SEND_EMAIL" : true,
